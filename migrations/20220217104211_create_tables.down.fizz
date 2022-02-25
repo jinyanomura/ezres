@@ -1,0 +1,4 @@
+drop_table("table_restrictions");
+drop_table("restriction");
+drop_table("reservations");
+drop_table("tables");

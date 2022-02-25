@@ -1,0 +1,49 @@
+{{template "base" .}}
+
+{{define "content"}}
+
+    <div class="container">
+        <div class="row mt-5 bg-secondary d-flex justify-content-around">
+            
+            <form action="/example" method="GET" onsubmit="searchAvailability(event)">
+                <input type="date" id="date" name="date" value="{{index .StringMap "date"}}" min="{{index .StringMap "today"}}" max="{{index .StringMap "maxDate"}}" onchange="searchAvailability(this.value)">
+                <select name="time" id="time">
+                    <option value="">10:00</option>
+                </select>
+                <button>Search</button>
+            </form>
+
+            {{range $table := index .Data "tables"}}
+                <div class="col-3 m-3 bg-light" onclick="showReservationForm(`{{$table.ID}}`)">
+                    {{$table.Capacity}}
+                </div>
+            {{end}}
+
+        </div>
+    </div>
+
+{{end}}
+
+{{define "js"}}
+
+    <script>
+
+        function searchAvailebility(e) {
+            e.preventDefault();
+            console.log(e);
+        }
+
+        // function searchAvailability(date) {
+        //     // date : '2006-01-02'
+        //     const dateEl = date.split('-');
+        //     const params = {y: dateEl[0], m: dateEl[1], d: dateEl[2]};
+        //     const query = new URLSearchParams(params);
+
+        //     window.location.href = `/example?${query}`
+
+        //     return
+        // }
+
+    </script>
+
+{{end}}

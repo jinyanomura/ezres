@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 type TemplateData struct {
 	StringMap map[string]string
 	IntMap map[string]int
@@ -9,5 +11,21 @@ type TemplateData struct {
 	Flash string
 	Warning string
 	Error string
-	IsAuthenticated bool
+}
+
+type Table struct {
+	ID int
+	Capacity int
+	Restrictions []Restriction
+}
+
+type Restriction struct {
+	ID int
+	StartTime time.Time
+	EndTime time.Time
+	TableID int
+	RestrictionID int
+	ReservationID int
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }

@@ -1,0 +1,34 @@
+create_table("tables") {
+  t.Column("id", "integer", {primary: true})
+  t.Column("capacity", "integer", {"default": 1})
+}
+
+create_table("restriction") {
+  t.Column("id", "integer", {primary: true})
+  t.Column("restriction_type", "string", {"size": 50})
+}
+
+create_table("reservations") {
+  t.Column("id", "integer", {primary: true})
+  t.Column("first_name", "string", {"default": ""})
+  t.Column("last_name", "string", {"default": ""})
+  t.Column("email", "string", {})
+  t.Column("phone", "string", {"null": true})
+  t.Column("num_people", "integer", {})
+  t.Column("table_id", "integer", {})
+  t.Column("start_time", "timestamp", {})
+  t.Column("end_time", "timestamp", {})
+  t.ForeignKey("table_id", {"tables": ["id"]}, {})
+}
+
+create_table("table_restrictions") {
+    t.Column("id", "integer", {primary: true})
+    t.Column("start_time", "timestamp", {})
+    t.Column("end_time", "timestamp", {})
+    t.Column("table_id", "integer", {})
+    t.Column("restriction_id", "integer", {})
+    t.Column("reservation_id", "integer", {})
+    t.ForeignKey("table_id", {"tables": ["id"]}, {})
+    t.ForeignKey("restriction_id", {"restriction": ["id"]}, {})
+    t.ForeignKey("reservation_id", {"reservations": ["id"]}, {"on_delete": "cascade"})
+}
